@@ -9,7 +9,9 @@
 - [ ] Copy the command you used, and the output generated and paste it below:
 
 ```
-paste the command and output here
+helm create hello-react
+Creating hello-react
+
 ```
 
 - [ ] In the `Chart.yaml` file, change the `appVersion` to "0.1.0".
@@ -36,7 +38,19 @@ helm install test-release hello-react --dry-run | grep image
 - [ ] Copy the command you used, and the output generated and paste it below:
 
 ```
-paste the command and output here
+helm install react-release hello-react
+NAME: react-release
+LAST DEPLOYED: Sun Oct 30 22:23:19 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get --namespace default svc -w react-release-hello-react'
+  export SERVICE_IP=$(kubectl get svc --namespace default react-release-hello-react --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
+  echo http://$SERVICE_IP:80
+
 ```
 
 - [ ] Verify your chart is installed using the `helm ls` command.
@@ -54,7 +68,10 @@ paste the command and output here
 - [ ] Copy the command you used, and the output generated and paste it below:
 
 ```
-paste the command and output here
+helm history react-release
+REVISION	UPDATED                 	STATUS  	CHART            	APP VERSION	DESCRIPTION     
+1       	Sun Oct 30 22:23:19 2022	deployed	hello-react-0.1.0	0.1.0      	Install complete
+
 ```
 
 - [ ] Before moving to the next step, record details of the release by running the following command:
@@ -85,7 +102,20 @@ helm get all react-release > v0.1.0-outut.txt
 - [ ] Copy the command you used, and the output generated and paste it below:
 
 ```
-paste the command and output here
+helm upgrade --install react-release hello-react
+Release "react-release" has been upgraded. Happy Helming!
+NAME: react-release
+LAST DEPLOYED: Sun Oct 30 22:35:30 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 2
+NOTES:
+1. Get the application URL by running these commands:
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get --namespace default svc -w react-release-hello-react'
+  export SERVICE_IP=$(kubectl get svc --namespace default react-release-hello-react --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
+  echo http://$SERVICE_IP:80
+
 ```
 
 - [ ] Verify your chart is installed using the `helm ls` command.
@@ -99,7 +129,11 @@ paste the command and output here
 - [ ] Copy the command you used, and the output generated and paste it below:
 
 ```
-paste the command and output here
+helm history react-release
+REVISION	UPDATED                 	STATUS    	CHART            	APP VERSION	DESCRIPTION     
+1       	Sun Oct 30 22:23:19 2022	superseded	hello-react-0.1.0	0.1.0      	Install complete
+2       	Sun Oct 30 22:35:30 2022	deployed  	hello-react-0.1.0	0.2.0      	Upgrade complete
+
 ```
 
 - [ ] Before moving to the next step, record details of the release by running the following command:
@@ -128,7 +162,9 @@ helm get all react-release > v0.2.0-outut.txt
 - [ ] Copy the command you used, and the output generated and paste it below:
 
 ```
-paste the command and output here
+helm rollback react-release 1
+Rollback was a success! Happy Helming!
+
 ```
 
 - [ ] Run the [helm history](https://helm.sh/docs/helm/helm_history/) command to see the history of your release,
@@ -136,7 +172,11 @@ paste the command and output here
 - [ ] Copy the command you used, and the output generated and paste it below:
 
 ```
-paste the command and output here
+helm history react-release
+REVISION	UPDATED                 	STATUS    	CHART            	APP VERSION	DESCRIPTION     
+1       	Sun Oct 30 22:23:19 2022	superseded	hello-react-0.1.0	0.1.0      	Install complete
+2       	Sun Oct 30 22:35:30 2022	superseded	hello-react-0.1.0	0.2.0      	Upgrade complete
+3       	Sun Oct 30 22:44:13 2022	deployed  	hello-react-0.1.0	0.1.0      	Rollback to 1   
 ```
 
 - [ ] Refresh your browser and verify the release now shows as 0.1.0. __NOTE:__ you may need to restart the `minikube tunnel` command if the refresh doesn't work. 
@@ -148,7 +188,9 @@ paste the command and output here
 - [ ] Copy the command you used, and the output generated and paste it below:
 
 ```
-paste the command and output here
+helm uninstall react-release
+release "react-release" uninstalled
+
 ```
 
 - [ ] Go back to the terminal window where you have `minikube tunnel` running and press `Ctrl` + `C` to stop the tunnel providing your password if prompted.
