@@ -1,1 +1,12 @@
 # Add your custom values here:
+wordpressUsername: indu
+wordpressPassword: T0p$3cr3t
+wordpressEmail: ikrishnaswamy@student.cscc.edu
+wordpressFirstName: indu
+wordpressLastName: krish
+wordpressBlogName: Indu's blog
+service.type: NodePort
+service.nodePorts.http: 30080
+service.nodePorts.https: 30443
+
+

@@ -31,7 +31,42 @@ As you debug, you may need to install and uninstall the chart a few times until 
 - [ ] Copy the command you used, and the output generated and paste it below:
 
 ```
-paste the command and output here
+helm install wp-first-release my-repo/wordpress -f values.yaml
+NAME: wp-first-release
+LAST DEPLOYED: Tue Oct 25 22:21:38 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+CHART NAME: wordpress
+CHART VERSION: 15.2.6
+APP VERSION: 6.0.3
+
+** Please be patient while the chart is being deployed **
+
+Your WordPress site can be accessed through the following DNS name from within your cluster:
+
+    wp-first-release-wordpress.default.svc.cluster.local (port 80)
+
+To access your WordPress site from outside the cluster follow the steps below:
+
+1. Get the WordPress URL by running these commands:
+
+  NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+        Watch the status with: 'kubectl get svc --namespace default -w wp-first-release-wordpress'
+
+   export SERVICE_IP=$(kubectl get svc --namespace default wp-first-release-wordpress --include "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}")
+   echo "WordPress URL: http://$SERVICE_IP/"
+   echo "WordPress Admin URL: http://$SERVICE_IP/admin"
+
+2. Open a browser and access WordPress using the obtained URL.
+
+3. Login with the following credentials below to see your blog:
+
+  echo Username: indu
+  echo Password: $(kubectl get secret --namespace default wp-first-release-wordpress -o jsonpath="{.data.wordpress-password}" | base64 -d)
+
 ```
 
 - [ ] Using `minikube service list`, get the URL to your application. 
@@ -45,7 +80,9 @@ paste the command and output here
 - [ ] Copy the command you used, and the output generated and paste it below:
 
 ```
-paste the command and output here
+helm uninstall wp-first-release
+release "wp-first-release" uninstalled
+
 ```
 
 ## Next up
